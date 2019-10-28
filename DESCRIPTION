@@ -1,0 +1,25 @@
+Package: penPHcure
+Type: Package
+Title: Variable Selection in Proportional-Hazards Cure Model with Time-Varying Covariates
+Version: 1.0.0
+Date: 2019-10-10
+Authors@R:
+    c(person(given = "Alessandro",
+             family = "Beretta",
+             role = c("aut", "cre"),
+             email = "a.beretta@uliege.be",
+             comment = c(ORCID = "0000-0002-0427-8785")),
+      person(given = "Cédric",
+             family = "Heuchenne",
+             role = "aut",
+             comment = c(ORCID = "0000-0002-3150-3044")))
+Description: Estimation, variable selection and simulation of the semi-parametric proportional-hazards (PH) cure model with time-varying covariates.
+License: GPL-2 | GPL-3
+Encoding: UTF-8
+Imports: Rcpp, MASS, Rdpack
+Depends: survival, R (>= 3.5)
+LinkingTo: Rcpp, RcppArmadillo
+URL: https://github.com/a-beretta/penPHcure
+BugReports: https://github.com/a-beretta/penPHcure/issues
+RoxygenNote: 6.1.1
+RdMacros: Rdpack

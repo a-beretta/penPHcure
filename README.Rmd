@@ -1,0 +1,52 @@
+---
+output: github_document
+bibliography: inst/REFERENCES.bib
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# penPHcure
+
+Contrary to standard survival analysis models, which rely on the assumption that the entire population will eventually experience the event of interest, mixture cure models allow to split the population in susceptible and non-susceptible (cured) individuals.
+
+In this R package, we implement the semi-parametric proportional-hazards (PH) cure model of @Sy_Taylor_2000 extended to time-varying covariates. In particular, the **penPHcure** function allows to:
+
+ * estimate the regression coefficients and the baseline hazard function (conditional on being susceptible);
+ 
+ * compute confidence intervals for the estimated regression coefficients using the basic/percentile bootstrap method;
+ 
+ * perform variable selection based on the SCAD-penalized likelihood, as in @Beretta_Heuchenne_2019. 
+
+Moreover, the **penPHcure.simulate** function allows to simulate data from a PH cure model, where the event-times are generated on a continuous scale from a piecewise exponential distribution conditional on time-varying covariates, using a method similar to the one described in @Hendry_2014.
+
+
+## Installation
+
+### CRAN
+
+To install the latest release from CRAN:
+```{r installCRAN,eval=FALSE}
+install.packages(penPHcure)
+```
+
+
+### GitHub
+
+To install the latest devel version from GitHub:
+```{r installGitHub,eval=FALSE}
+library(devtools)
+install_github("a-beretta/penPHcure")
+```
+
+## Contact
+
+* If you discover a bug or you have a suggestion to improve the package: <https://github.com/a-beretta/penPHcure/issues>
+
+* For help or more information contact: <a.beretta@uliege.be>
+
+## References
+
