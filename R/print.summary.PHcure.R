@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# Copyright (C) 2018-2019 University of Liège
+# Copyright (C) 2019 University of Liège
 # <penPHcure is an R package for for estimation, variable selection and 
 #  simulation of the semiparametric proportional-hazards (PH) cure model with 
 #  time-varying covariates.>
@@ -54,7 +54,7 @@ print.summary.PHcure <- function(x,...)
   if (x$conf.int!="no"){
     cat('\n------------------------------------------------------\n')
     cat('* Confidence intervals computed by the',x$conf.int,
-        '\n  bootstrap method, with',x$inference$nboot,'replications.')
+        '\n  bootstrap method, with',x$nboot,'replications.')
     cat('\n------------------------------------------------------\n')
   }
 }

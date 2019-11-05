@@ -23,6 +23,7 @@ An object of class \code{summary.PHcure}, a list including the following element
  \item{\code{isTies}}{a logical value, equal to \code{TRUE} in case of tied event times.}
  \item{\code{conf.int}}{a character string indicating the method used to compute the bootstrapped confidence intervals: \code{"percentile"}, \code{"basic"} or \code{"no"}. The latter is returned when the \code{\link{penPHcure}} function was called with the argument \code{inference = FALSE}.}
  \item{\code{conf.int.level}}{confidence level used to compute the bootstrapped confidence intervals.}
+ \item{\code{nboot}}{the number of bootstrap resamples for the construction of the confidence intervals.}
  \item{\code{logL}}{the value of the log-likelihood for the estimated model.}
  \item{\code{CURE}}{a matrix with one column containing the estimated regression coefficients in the incidence (cure) component. In case the function \code{\link{penPHcure}} was called with the argument \code{inference = TRUE}, two additional columns for the confidence intervals are provided.}
  \item{\code{SURV}}{a matrix where in the first column the estimated regression coefficients in the latency (survival) component. In case the function \code{\link{penPHcure}} was called with the argument \code{inference = TRUE}, two additional columns for the confidence intervals are provided.}
@@ -32,12 +33,12 @@ Produces a summary of a fitted PH cure model
 }
 \examples{
 # For reproducibility
-set.seed(3) 
-# Un-comment the following line if you use R (>=3.6)
+set.seed(12) 
+# If you use R v3.6 or greater, uncomment the following line
 # RNGkind(sample.kind="Rounding") 
 
 # Generate some data (for more details type ?penPHcure.simulate in your console)
-data <- penPHcure.simulate()
+data <- penPHcure.simulate(N=250)
  
 # Fit standard cure model (without inference)
 fit <- penPHcure(Surv(time = tstart,time2 = tstop,
@@ -50,75 +51,75 @@ summary(fit)
 # ------------------------------------------------------
 # +++   PH cure model with time-varying covariates   +++
 # ------------------------------------------------------
-# Sample size: 500
-# Censoring proportion: 0.56
-# Number of unique event times: 220
+# Sample size: 250
+# Censoring proportion: 0.5
+# Number of unique event times: 125
 # Tied failure times: FALSE
 # 
-# log-likelihood:  101.85 
+# log-likelihood:  74.11 
 # 
 # ------------------------------------------------------
 # +++         Cure (incidence) coefficients          +++
 # ------------------------------------------------------
 #              Estimate
-# (Intercept)  1.136690
-# x.1         -0.816737
-# x.2          0.087270
-# x.3          0.910139
-# x.4          0.058115
+# (Intercept)  0.889668
+# x.1         -0.972653
+# x.2         -0.051580
+# x.3          0.714611
+# x.4          0.156169
 # 
 # ------------------------------------------------------
 # +++         Survival (latency) coefficients         +++
 # ------------------------------------------------------
 #      Estimate
-# z.1  1.033331
-# z.2 -0.051417
-# z.3 -0.881202
-# z.4 -0.070461
+# z.1  0.996444
+# z.2 -0.048792
+# z.3 -1.013562
+# z.4  0.079422
 
-\dontrun{
-# Fit standard cure model (with inference)
+# Fit standard cure model (with inference). nboot = 30 bootstrap resamples
+#  are used to compute the confidence intervals.  
 fit2 <- penPHcure(Surv(time = tstart,time2 = tstop,
                        event = status) ~ z.1 + z.2 + z.3 + z.4,
                   cureform = ~ x.1 + x.2 + x.3 + x.4,data = data,
-                  inference = TRUE)
+                  inference = TRUE,print.details = FALSE,nboot = 30)
 # Use the summary method to see the results
 summary(fit2)
 #
 # ------------------------------------------------------
 # +++   PH cure model with time-varying covariates   +++
 # ------------------------------------------------------
-# Sample size: 500
-# Censoring proportion: 0.56
-# Number of unique event times: 220
+# Sample size: 250
+# Censoring proportion: 0.5
+# Number of unique event times: 125
 # Tied failure times: FALSE
 # 
-# log-likelihood:  101.85 
+# log-likelihood:  74.11 
 # 
 # ------------------------------------------------------
 # +++     Cure (incidence) coefficient estimates     +++
 # +++          and 95\% confidence intervals *        +++
 # ------------------------------------------------------
 #              Estimate      2.5\%     97.5\%
-# (Intercept)  1.136690  0.534618  1.526125
-# x.1         -0.816737 -1.071404 -0.456797
-# x.2          0.087270 -0.315229  0.469473
-# x.3          0.910139  0.513726  1.251313
-# x.4          0.058115 -0.321220  0.506324
+# (Intercept)  0.889668  0.455975  1.092495
+# x.1         -0.972653 -1.414194 -0.503824
+# x.2         -0.051580 -0.557843  0.304632
+# x.3          0.714611  0.206211  1.081819
+# x.4          0.156169 -0.011555  0.464841
 # 
 # ------------------------------------------------------
 # +++    Survival (latency) coefficient estimates    +++
 # +++          and 95\% confidence intervals *        +++
 # ------------------------------------------------------
 #      Estimate      2.5\%     97.5\%
-# z.1  1.033331  0.855820  1.157263
-# z.2 -0.051417 -0.171534  0.125073
-# z.3 -0.881202 -1.003755 -0.680853
-# z.4 -0.070461 -0.199304  0.098877
+# z.1  0.996444  0.750321  1.130650
+# z.2 -0.048792 -0.204435  0.073196
+# z.3 -1.013562 -1.127882 -0.780339
+# z.4  0.079422 -0.100677  0.193522
 # 
 # ------------------------------------------------------
 # * Confidence intervals computed by the basic 
-#   bootstrap method, with replications.
+#   bootstrap method, with 30 replications.
 # ------------------------------------------------------
 
 # By default, confidence intervals are computed by the basic bootstrap method.
@@ -128,37 +129,37 @@ summary(fit2,conf.int = "percentile")
 # ------------------------------------------------------
 # +++   PH cure model with time-varying covariates   +++
 # ------------------------------------------------------
-# Sample size: 500
-# Censoring proportion: 0.56
-# Number of unique event times: 220
+# Sample size: 250
+# Censoring proportion: 0.5
+# Number of unique event times: 125
 # Tied failure times: FALSE
 # 
-# log-likelihood:  101.85 
+# log-likelihood:  74.11 
 # 
 # ------------------------------------------------------
 # +++     Cure (incidence) coefficient estimates     +++
 # +++          and 95\% confidence intervals *        +++
 # ------------------------------------------------------
 #              Estimate      2.5\%     97.5\%
-# (Intercept)  1.136690  0.747255  1.738762
-# x.1         -0.816737 -1.176677 -0.562070
-# x.2          0.087270 -0.294933  0.489769
-# x.3          0.910139  0.568964  1.306551
-# x.4          0.058115 -0.390095  0.437450
+# (Intercept)  0.889668  0.686842  1.323362
+# x.1         -0.972653 -1.441483 -0.531112
+# x.2         -0.051580 -0.407791  0.454684
+# x.3          0.714611  0.347404  1.223011
+# x.4          0.156169 -0.152503  0.323893
 # 
 # ------------------------------------------------------
 # +++    Survival (latency) coefficient estimates    +++
 # +++          and 95\% confidence intervals *        +++
 # ------------------------------------------------------
 #      Estimate      2.5\%     97.5\%
-# z.1  1.033331  0.909398  1.210841
-# z.2 -0.051417 -0.227906  0.068701
-# z.3 -0.881202 -1.081551 -0.758648
-# z.4 -0.070461 -0.239798  0.058382
+# z.1  0.996444  0.862238  1.242567
+# z.2 -0.048792 -0.170779  0.106852
+# z.3 -1.013562 -1.246785 -0.899242
+# z.4  0.079422 -0.034678  0.259521
 # 
 # ------------------------------------------------------
 # * Confidence intervals computed by the percentile 
-#   bootstrap method, with replications.
+#   bootstrap method, with 30 replications.
 # ------------------------------------------------------
 
 # By default, a 95\% confidence level is used. Otherwise, the user can specify 
@@ -168,37 +169,37 @@ summary(fit2,conf.int.level = 0.90)
 # ------------------------------------------------------
 # +++   PH cure model with time-varying covariates   +++
 # ------------------------------------------------------
-# Sample size: 500
-# Censoring proportion: 0.56
-# Number of unique event times: 220
+# Sample size: 250
+# Censoring proportion: 0.5
+# Number of unique event times: 125
 # Tied failure times: FALSE
 # 
-# log-likelihood:  101.85 
+# log-likelihood:  74.11 
 # 
 # ------------------------------------------------------
 # +++     Cure (incidence) coefficient estimates     +++
 # +++          and 90\% confidence intervals *        +++
 # ------------------------------------------------------
 #              Estimate        5\%       95\%
-# (Intercept)  1.136690  0.625650  1.465492
-# x.1         -0.816737 -1.043765 -0.491041
-# x.2          0.087270 -0.233636  0.389681
-# x.3          0.910139  0.616719  1.211806
-# x.4          0.058115 -0.260685  0.364540
+# (Intercept)  0.889668  0.467864  1.074423
+# x.1         -0.972653 -1.397088 -0.618265
+# x.2         -0.051580 -0.527389  0.249460
+# x.3          0.714611  0.314140  1.028425
+# x.4          0.156169  0.033802  0.436361
 # 
 # ------------------------------------------------------
 # +++    Survival (latency) coefficient estimates    +++
 # +++          and 90\% confidence intervals *        +++
 # ------------------------------------------------------
 #      Estimate        5\%       95\%
-# z.1  1.033331  0.870338  1.123005
-# z.2 -0.051417 -0.163104  0.081329
-# z.3 -0.881202 -0.997319 -0.705101
-# z.4 -0.070461 -0.189484  0.051128
+# z.1  0.996444  0.767937  1.125745
+# z.2 -0.048792 -0.158821  0.050965
+# z.3 -1.013562 -1.120989 -0.800606
+# z.4  0.079422 -0.086063  0.180392
 # 
 # ------------------------------------------------------
 # * Confidence intervals computed by the basic 
-#   bootstrap method, with replications.
+#   bootstrap method, with 30 replications.
 # ------------------------------------------------------
-}
+
 }

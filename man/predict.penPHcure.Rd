@@ -31,24 +31,24 @@ If the model selected by means of the BIC criterion differs from the one selecte
 If argument \code{X} was not supplied in the call to the \code{\link{penPHcure}} function, the probabilities to be susceptible are computed using the covariates retrieved using the same \code{which.X} method as in the \code{\link{penPHcure}} function call.
 }
 \examples{
-\dontrun{
 
 # Generate some data (for more details type ?penPHcure.simulate in your console)
-set.seed(3) # For reproducibility
-data <- penPHcure.simulate()
+set.seed(12) # For reproducibility
+data <- penPHcure.simulate(N=250)
 
 ### Tune penalized cure model with SCAD penalties
 # First define the grid of possible values for the tuning parameters.
-pen.tuneGrid <- list(CURE = list(lambda = exp(seq(-7,-2,length.out = 10)),
+pen.tuneGrid <- list(CURE = list(lambda = c(0.01,0.03,0.05,0.07,0.09),
                                  a = 3.7),
-                     SURV = list(lambda = exp(seq(-7,-2,length.out = 10)),
+                     SURV = list(lambda = c(0.01,0.03,0.05,0.07,0.09),
                                  a = 3.7))
 # Tune the penalty parameters.
 tuneSCAD <- penPHcure(Surv(time = tstart,time2 = tstop,
                            event = status) ~ z.1 + z.2 + z.3 + z.4,
                       cureform = ~ x.1 + x.2 + x.3 + x.4,
                       data = data,pen.type = "SCAD",
-                      pen.tuneGrid = pen.tuneGrid)
+                      pen.tuneGrid = pen.tuneGrid,
+                      print.details = FALSE)
                       
 # Use the predict method to obtain the probabilities for the selected model.
 #  By default, the model is the one selected on the basis of the BIC criterion.
@@ -67,17 +67,16 @@ pred.tuneSCAD.newdata.BIC <- predict(tuneSCAD,newdata)
 pred.tuneSCAD.newdata.AIC <- predict(tuneSCAD,newdata,crit.type="AIC")
 # The probabilities to be susceptible for the BIC selected model are:
 pred.tuneSCAD.newdata.BIC$CURE
-# [1] 0.775832 0.775832
+# [1] 0.6456631 0.6456631
 # The probabilities to be susceptible for the AIC selected model are:
 pred.tuneSCAD.newdata.BIC$CURE
-# [1] 0.775832 0.775832
+# [1] 0.6456631 0.6456631
 # The survival probabilities (conditional on being susceptible) for the BIC 
 #  selected model are:
 pred.tuneSCAD.newdata.BIC$SURV
-# [1] 0.5468601 0.2387368
+# [1] 0.5624514 0.1335912
 # The survival probabilities (conditional on being susceptible) for the AIC 
 #  selected model are:
 pred.tuneSCAD.newdata.AIC$SURV
-# [1] 0.5468601 0.2387368
-}
+# [1] 0.5624514 0.1335912
 }

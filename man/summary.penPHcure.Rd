@@ -30,24 +30,23 @@ An object of class \code{summary.penPHcure}, a list including the following elem
 Produces a summary of a fitted penalized PH cure model, after selection of the tuning parameters, based on AIC or BIC criteria.
 }
 \examples{
-\dontrun{
-
 # Generate some data (for more details type ?penPHcure.simulate in your console)
-set.seed(3) # For reproducibility
-data <- penPHcure.simulate()
+set.seed(12) # For reproducibility
+data <- penPHcure.simulate(N=250)
 
 ### Tune penalized cure model with SCAD penalties
 # First define the grid of possible values for the tuning parameters.
-pen.tuneGrid <- list(CURE = list(lambda = exp(seq(-7,-2,length.out = 10)),
+pen.tuneGrid <- list(CURE = list(lambda = c(0.01,0.03,0.05,0.07,0.09),
                                  a = 3.7),
-                     SURV = list(lambda = exp(seq(-7,-2,length.out = 10)),
+                     SURV = list(lambda = c(0.01,0.03,0.05,0.07,0.09),
                                  a = 3.7))
 # Tune the penalty parameters.
 tuneSCAD <- penPHcure(Surv(time = tstart,time2 = tstop,
                            event = status) ~ z.1 + z.2 + z.3 + z.4,
                       cureform = ~ x.1 + x.2 + x.3 + x.4,
                       data = data,pen.type = "SCAD",
-                      pen.tuneGrid = pen.tuneGrid)
+                      pen.tuneGrid = pen.tuneGrid,
+                      print.details = FALSE)
 # Use the summary method to see the results
 summary(tuneSCAD)
 # 
@@ -55,9 +54,9 @@ summary(tuneSCAD)
 # +++   PH cure model with time-varying covariates   +++
 # +++             [ Variable selection ]             +++
 # ------------------------------------------------------
-# Sample size:  500
-# Censoring proportion:  0.56
-# Number of unique event times: 220
+# Sample size:  250
+# Censoring proportion:  0.5
+# Number of unique event times: 125
 # Tied failure times:  FALSE
 # Penalty type:  SCAD
 # Selection criterion:  BIC
@@ -65,30 +64,30 @@ summary(tuneSCAD)
 # ------------------------------------------------------
 # +++               Tuning parameters                +++
 # ------------------------------------------------------
-#  Cure (incidence) --- lambda:  0.008414677 
+#  Cure (incidence) --- lambda:  0.07 
 #                            a:  3.7 
 # 
-#  Survival (latency) - lambda:  0.04455143 
+#  Survival (latency) - lambda:  0.07 
 #                            a:  3.7 
 # 
-#  BIC =  -170.6337 
+#  BIC =  -118.9359 
 # 
 # ------------------------------------------------------
 # +++                Cure (incidence)                +++
 # +++     [ Coefficients of selected covariates ]    +++
 # ------------------------------------------------------
 #              Estimate
-# (Intercept)  1.140474
-# x.1         -0.815006
-# x.3          0.916072
+# (Intercept)  0.872374
+# x.1         -0.958260
+# x.3          0.685916
 # 
 # ------------------------------------------------------
 # +++              Survival (latency)                +++
 # +++     [ Coefficients of selected covariates ]    +++
 # ------------------------------------------------------
 #      Estimate
-# z.1  1.037437
-# z.3 -0.876859
+# z.1  0.991754
+# z.3 -1.008180
 
 # By default, the summary method for the penPHcure.object returns the selected 
 #  variables based on the BIC criterion. For AIC, the user can set the 
@@ -99,9 +98,9 @@ summary(tuneSCAD,crit.type = "AIC")
 # +++   PH cure model with time-varying covariates   +++
 # +++             [ Variable selection ]             +++
 # ------------------------------------------------------
-# Sample size:  500
-# Censoring proportion:  0.56
-# Number of unique event times: 220
+# Sample size:  250
+# Censoring proportion:  0.5
+# Number of unique event times: 125
 # Tied failure times:  FALSE
 # Penalty type:  SCAD
 # Selection criterion:  AIC
@@ -109,29 +108,29 @@ summary(tuneSCAD,crit.type = "AIC")
 # ------------------------------------------------------
 # +++               Tuning parameters                +++
 # ------------------------------------------------------
-#  Cure (incidence) --- lambda:  0.008414677 
+#  Cure (incidence) --- lambda:  0.07 
 #                            a:  3.7 
 # 
-#  Survival (latency) - lambda:  0.04455143 
+#  Survival (latency) - lambda:  0.07 
 #                            a:  3.7 
 # 
-#  AIC =  -191.7067 
+#  AIC =  -136.5432 
 # 
 # ------------------------------------------------------
 # +++                Cure (incidence)                +++
 # +++     [ Coefficients of selected covariates ]    +++
 # ------------------------------------------------------
 #              Estimate
-# (Intercept)  1.140474
-# x.1         -0.815006
-# x.3          0.916072
+# (Intercept)  0.872374
+# x.1         -0.958260
+# x.3          0.685916
 # 
 # ------------------------------------------------------
 # +++              Survival (latency)                +++
 # +++     [ Coefficients of selected covariates ]    +++
 # ------------------------------------------------------
 #      Estimate
-# z.1  1.037437
-# z.3 -0.876859
-}
+# z.1  0.991754
+# z.3 -1.008180
+
 }

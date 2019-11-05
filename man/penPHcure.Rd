@@ -74,9 +74,8 @@ When performing variable selection (\code{pen.type == "SCAD" | "LASSO"}), a pena
 Regarding the possible tuning parameters in \code{pen.tuneGrid}, the numeric vectors \code{lambda} and \code{a} should contain values >= 0 and > 2, respectively.
 }
 \examples{
-\dontrun{
+\donttest{
 # Generate some data (for more details type ?penPHcure.simulate in your console)
-set.seed(3) # For reproducibility
 data <- penPHcure.simulate()
 
 ### Standard PH cure model

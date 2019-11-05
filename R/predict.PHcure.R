@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# Copyright (C) 2018-2019 University of Liège
+# Copyright (C) 2019 University of Liège
 # <penPHcure is an R package for for estimation, variable selection and 
 #  simulation of the semiparametric proportional-hazards (PH) cure model with 
 #  time-varying covariates.>
@@ -32,8 +32,8 @@
 #'
 #'@examples
 #' # Generate some data (for more details type ?penPHcure.simulate in your console)
-#' set.seed(3) # For reproducibility
-#' data <- penPHcure.simulate()
+#' set.seed(12) # For reproducibility
+#' data <- penPHcure.simulate(N=250)
 #'  
 #' # Fit standard cure model (without inference)
 #' fit <- penPHcure(Surv(time = tstart,time2 = tstop,
@@ -52,10 +52,10 @@
 #' pred.fit.newdata <- predict(fit,newdata)
 #' # The probabilities to be susceptible are:
 #' pred.fit.newdata$CURE
-#' # [1] 0.7982635 0.7982635
+#' # [1] 0.6761677 0.6761677
 #' # The survival probabilities (conditional on being susceptible) are:
 #' pred.fit.newdata$SURV
-#' # [1] 0.5856398 0.2812915
+#' # [1] 0.5591570 0.1379086
 #' 
 #' 
 #'@export
