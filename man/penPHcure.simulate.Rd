@@ -4,12 +4,23 @@
 \alias{penPHcure.simulate}
 \title{Simulation of a PH cure model with time-varying covariates}
 \usage{
-penPHcure.simulate(N = 500, S = seq(0.1, 5, by = 0.1), b0 = c(1.2,
-  -1, 0, 1, 0), beta0 = c(1, 0, -1, 0), gamma = 1, lambdaC = 1,
-  mean_CURE = rep(0, length(b0) - 1L), mean_SURV = rep(0,
-  length(beta0)), sd_CURE = rep(1, length(b0) - 1L), sd_SURV = rep(1,
-  length(beta0)), cor_CURE = diag(length(b0) - 1L),
-  cor_SURV = diag(length(beta0)), X = NULL, Z = NULL, C = NULL)
+penPHcure.simulate(
+  N = 500,
+  S = seq(0.1, 5, by = 0.1),
+  b0 = c(1.2, -1, 0, 1, 0),
+  beta0 = c(1, 0, -1, 0),
+  gamma = 1,
+  lambdaC = 1,
+  mean_CURE = rep(0, length(b0) - 1L),
+  mean_SURV = rep(0, length(beta0)),
+  sd_CURE = rep(1, length(b0) - 1L),
+  sd_SURV = rep(1, length(beta0)),
+  cor_CURE = diag(length(b0) - 1L),
+  cor_SURV = diag(length(beta0)),
+  X = NULL,
+  Z = NULL,
+  C = NULL
+)
 }
 \arguments{
 \item{N}{the sample size (number of individuals). By default, \code{N = 500}.}

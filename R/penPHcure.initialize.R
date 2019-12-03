@@ -21,9 +21,7 @@ penPHcure.initialize <- function(formula,cureform,data,X,ties,maxIterNR,
   init <- list()
   init$nobs <- nrow(data)
   mdl <- model.frame(formula,data=data)
-  init$survform <- paste(c(colnames(mdl)[1],"~"),collapse = " ")
-  init$survform <- as.formula(paste(c(init$survform,
-                                     colnames(mdl)[-1]),collapse = " + "))
+  init$survform <- formula
   SurvObj <- mdl[,1]
   init$tstart <- SurvObj[,1]
   init$tstop <- SurvObj[,2]
@@ -37,7 +35,7 @@ penPHcure.initialize <- function(formula,cureform,data,X,ties,maxIterNR,
   init$Z <- model.matrix(formula,data=data)[,-1,drop=FALSE]
   if(is.null(X)){
     X <- model.matrix(cureform,data=data)[,drop=FALSE]
-    init$cureform <- as.formula(paste(c("~",colnames(X)[-1]),collapse = " + "))
+    init$cureform <- cureform
     if (!any(colnames(X)=="(Intercept)"))
       stop('penPHcure.initialize :: intercept must be 
            included in the incidence component.')

@@ -1,8 +1,8 @@
 Package: penPHcure
 Type: Package
 Title: Variable Selection in PH Cure Model with Time-Varying Covariates
-Version: 1.0.1
-Date: 2019-10-10
+Version: 1.0.2
+Date: 2019-12-03
 Authors@R:
     c(person(given = "Alessandro",
              family = "Beretta",
@@ -22,6 +22,6 @@ Depends: survival, R (>= 3.5)
 LinkingTo: Rcpp, RcppArmadillo
 URL: https://github.com/a-beretta/penPHcure
 BugReports: https://github.com/a-beretta/penPHcure/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 RdMacros: Rdpack
 LazyData: true

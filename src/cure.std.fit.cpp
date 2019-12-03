@@ -48,10 +48,11 @@ arma::vec compute_survival_cpp(const arma::vec& beta,const arma::vec& base_hazar
         j = 0;
       }
     }
-    while ((j<K)&(fail_times[j]<=tstop[i])){
+    while (j<K){
+      if (fail_times[j]>tstop[i]) break;
       cum_hazard[id] += expZbeta[i] * base_hazard[j];
       // Zero-tail constraint !!!
-      if (constraint & (tstop[i] > last_fail_time)) cum_hazard[id] = datum::inf; 
+      if (constraint & (tstop[i] > last_fail_time)) cum_hazard[id] = datum::inf;
       j++;
     }
     i++;

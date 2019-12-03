@@ -4,13 +4,29 @@
 \alias{penPHcure}
 \title{Variable selection in PH cure model with time-varying covariates}
 \usage{
-penPHcure(formula, cureform, data, X = NULL, maxIterNR = 500,
-  maxIterEM = 500, tol = 1e-06, standardize = TRUE,
-  ties = c("efron", "breslow"), SV = NULL, which.X = c("last",
-  "mean"), inference = FALSE, nboot = 100, constraint = TRUE,
-  pen.type = c("none", "SCAD", "LASSO"), pen.weights = NULL,
-  pen.tuneGrid = NULL, epsilon = 1e-08, pen.thres.zero = 1e-06,
-  print.details = TRUE, warnings = FALSE)
+penPHcure(
+  formula,
+  cureform,
+  data,
+  X = NULL,
+  maxIterNR = 500,
+  maxIterEM = 500,
+  tol = 1e-06,
+  standardize = TRUE,
+  ties = c("efron", "breslow"),
+  SV = NULL,
+  which.X = c("last", "mean"),
+  inference = FALSE,
+  nboot = 100,
+  constraint = TRUE,
+  pen.type = c("none", "SCAD", "LASSO"),
+  pen.weights = NULL,
+  pen.tuneGrid = NULL,
+  epsilon = 1e-08,
+  pen.thres.zero = 1e-06,
+  print.details = TRUE,
+  warnings = FALSE
+)
 }
 \arguments{
 \item{formula}{a formula object, with the response on the left of a \code{~} operator and the variables to be included in the latency (survival) component on the right. The response must be a survival object returned by the \code{Surv(time,time2,status)} function.}
